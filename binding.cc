@@ -262,6 +262,8 @@ namespace zmq {
 
     Socket *socket = new Socket(context, type);
     socket->Wrap(args.This());
+    // Make strong ref
+    socket->Ref();
 
     return args.This();
   }
@@ -845,6 +847,7 @@ namespace zmq {
     HandleScope scope;
     GET_SOCKET(args);
     socket->Close();
+    socket->Unref();
     return Undefined();
   }
 
